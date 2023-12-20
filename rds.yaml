@@ -1,0 +1,28 @@
+Resources:
+  MyDBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupName: my-db-subnet-group
+      DBSubnetGroupDescription: My DB subnet group
+      SubnetIds:
+        - subnet-12345678  # Replace with the subnet ID(s) in your VPC
+
+  MyDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: mysql
+      DBInstanceIdentifier: my-db-instance
+      DBInstanceClass: db.t2.micro
+      EngineVersion: 8.0.23
+      AllocatedStorage: 20
+      MasterUsername: admin
+      MasterUserPassword: Password123!
+      DBSubnetGroupName: !Ref MyDBSubnetGroup
+      VPCSecurityGroups:
+        - sg-12345678  # Replace with the security group ID(s) for your DB instance
+      MultiAZ: false
+
+Outputs:
+  DBEndpoint:
+    Value: !GetAtt MyDBInstance.Endpoint.Address
+

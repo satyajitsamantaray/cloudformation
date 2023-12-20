@@ -1,0 +1,26 @@
+Resources:
+  MySageMakerNotebookInstance:
+    Type: AWS::SageMaker::NotebookInstance
+    Properties:
+      NotebookInstanceName: my-sagemaker-notebook
+      InstanceType: ml.t2.medium
+      RoleArn: !GetAtt MySageMakerNotebookRole.Arn
+
+  MySageMakerNotebookRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: my-sagemaker-notebook-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: sagemaker.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+
+Outputs:
+  SageMakerNotebookInstanceArn:
+    Value: !Ref MySageMakerNotebookInstance
+

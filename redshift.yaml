@@ -1,0 +1,23 @@
+Resources:
+  MyRedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterIdentifier: my-redshift-cluster
+      MasterUsername: admin
+      MasterUserPassword: Password123!
+      NodeType: dc2.large
+      NumberOfNodes: 2
+      DBName: mydatabase
+      ClusterType: single-node
+      VpcSecurityGroupIds:
+        - sg-12345678  # Replace with the security group ID(s) for your Redshift cluster
+      PubliclyAccessible: false
+      Encrypted: true
+      EnhancedVpcRouting: true
+
+Outputs:
+  RedshiftClusterEndpoint:
+    Value: !GetAtt MyRedshiftCluster.Endpoint.Address
+  RedshiftClusterPort:
+    Value: !GetAtt MyRedshiftCluster.Endpoint.Port
+

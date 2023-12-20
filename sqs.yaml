@@ -1,0 +1,15 @@
+Resources:
+  MySqsQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: my-sqs-queue
+      VisibilityTimeout: 300
+      DelaySeconds: 0
+      MaximumMessageSize: 262144
+      MessageRetentionPeriod: 345600
+      ReceiveMessageWaitTimeSeconds: 20
+
+Outputs:
+  SqsQueueUrl:
+    Value: !Ref MySqsQueue
+

@@ -1,0 +1,22 @@
+Resources:
+  MyDocumentDBCluster:
+    Type: AWS::DocDB::DBCluster
+    Properties:
+      Engine: docdb
+      DBClusterIdentifier: my-documentdb-cluster
+      MasterUsername: admin
+      MasterUserPassword: Password123!
+      AvailabilityZones:
+        - us-west-2a
+        - us-west-2b
+      VpcSecurityGroupIds:
+        - sg-12345678  # Replace with the security group ID(s) for your DocumentDB cluster
+      BackupRetentionPeriod: 7
+      EnableCloudwatchLogsExports:
+        - audit
+      StorageEncrypted: true
+
+Outputs:
+  DocumentDBClusterEndpoint:
+    Value: !GetAtt MyDocumentDBCluster.Endpoint
+

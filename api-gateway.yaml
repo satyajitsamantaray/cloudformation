@@ -1,0 +1,28 @@
+Resources:
+  MyApiGateway:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: my-api-gateway
+      Description: My API Gateway
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+
+  MyApiGatewayDeployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn: MyApiGateway
+    Properties:
+      RestApiId: !Ref MyApiGateway
+      StageName: prod
+
+  MyApiGatewayStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      RestApiId: !Ref MyApiGateway
+      DeploymentId: !Ref MyApiGatewayDeployment
+      StageName: prod
+
+Outputs:
+  ApiGatewayEndpoint:
+    Value: !Sub "https://${MyApiGateway}.execute-api.${AWS::Region}.amazonaws.com/prod"
+

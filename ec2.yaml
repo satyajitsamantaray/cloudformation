@@ -1,0 +1,18 @@
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-12345678  # Replace with your desired AMI ID
+      InstanceType: t2.micro
+      KeyName: my-keypair
+      SecurityGroupIds:
+        - sg-12345678  # Replace with your desired security group ID
+      SubnetId: subnet-12345678  # Replace with your desired subnet ID
+      Tags:
+        - Key: Name
+          Value: my-ec2-instance
+
+Outputs:
+  InstanceId:
+    Value: !Ref MyEC2Instance
+
